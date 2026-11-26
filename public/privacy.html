@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f172a">
+  <title>Privacy — NSAT Messenger</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main id="app">
+    <header><a href="/" style="color:inherit;text-decoration:none"><strong>✳ NSAT Messenger</strong></a><a href="/">Home</a></header>
+    <article style="max-width:820px;margin:32px auto;padding:24px;line-height:1.7">
+      <h1>Privacy Policy</h1>
+      <p>Last updated: November 25, 2026</p>
+      <p>NSAT Messenger is an independent prototype operated for the NSAT project. This policy describes the data handled by the current version.</p>
+      <h2>Information we process</h2>
+      <ul>
+        <li>When you sign in with Google, Google shares your account identifier, name, and email address with this app. The app requests basic identity only and does not request Gmail or Google Drive access.</li>
+        <li>Messages include the room or direct-chat identifier, message text, sender name, and time sent. Photos, short voice clips, poll choices, and reactions are also stored with chat history. Direct chats check participant membership on the server. The server keeps up to 100 recent messages per room in its local data file. Older messages are removed as new messages arrive. Chat files are not encrypted by this prototype, and messages are not end-to-end encrypted.</li>
+        <li>Your username, display name, profile photo and cover photo, status message, short bio, optional phone number, birthday, website, city, work, education, and relationship status are stored in the local profile file when you choose to provide them. You can set each optional field to be visible to everyone, friends, or only you. Email remains private. People search can match a username prefix or an exact email address; results do not display email addresses.</li>
+        <li>New members create an NSAT wallet key in their browser and confirm they saved the recovery key. The recovery key is encrypted in that browser’s local storage with a wallet password (PBKDF2-SHA256 and AES-256-GCM). The server stores the public wallet address and backup-confirmation flag only; it never receives the recovery key. Clearing browser storage can remove the encrypted copy. This prototype does not read balances or send NSAT transactions.</li>
+        <li>Friend requests, accepted friendships, and block settings are stored on the server. Blocking a user removes the friendship, hides the direct chat, and prevents both people from reopening it until the blocker unblocks them. You can submit an account report with a category and optional details; reports are stored for operator review and are not currently visible in an in-app moderation dashboard.</li>
+        <li>AI chat sends the messages you submit and up to 12 recent messages to Google Gemini only after you agree to the in-app sharing notice. AI chat history is kept in the active browser tab and is not saved to this app's server. Google's handling of submitted content is subject to Google's terms and privacy policy.</li>
+        <li>For signed-in session management, the server stores a random session identifier, its creation/expiry time, a coarse browser/device label (for example, Safari on iPhone), and whether you chose to stay signed in. It does not store an IP address or precise location for this feature. Normal sessions expire after seven days; “Stay signed in on this device” is selected by default and can be unchecked. If selected, the token is kept in browser local storage and expires after 30 days. You can review sessions and revoke this device or other devices from Manage devices. Revoked sessions lose API and realtime access.</li>
+      </ul>
+      <h2>Video and audio calls</h2>
+      <p>Voice messages are recorded in your browser only after you choose the Voice control and are uploaded to the room. Calls use WebRTC. The browser asks for camera and microphone access before a call. Optional visual filters are applied in your browser to camera frames before they are sent. Screen sharing sends the selected screen to the other caller after you choose Share screen and approve the browser prompt. The app server carries call setup signals but does not record calls. Media is exchanged between participants, and network routing may involve a configured STUN or TURN service.</p>
+      <h2>How information is used and shared</h2>
+      <p>Account details are used to sign you in and label messages. Members of a public room can see its messages; only the two authorized participants can join a direct chat. The server operator can access locally stored chat data. Administrators may publish clearly labeled public announcements in fixed app placements. These items are not personalized using member data. Admin-uploaded announcement media is stored on the app server and served from a public, unguessable URL; alternatively, admins may use third-party hosted media and destination links. Media loads in its placement, while destination links open only after a member chooses them. The app does not use advertising analytics or tracking pixels.</p>
+      <h2>Retention and requests</h2>
+      <p>Messages remain on the self-hosted server until removed by the retention limit or by the server operator. For questions or a request to remove data, contact <a href="mailto:appmigs@gmail.com">appmigs@gmail.com</a>.</p>
+      <h2>Prototype limits</h2>
+      <p>This is an early prototype without end-to-end encryption, account recovery, or user-facing message deletion. Photos are compressed in your browser before upload. Do not use it for confidential or sensitive information.</p>
+      <p>Contact: <a href="mailto:appmigs@gmail.com">appmigs@gmail.com</a></p>
+    </article>
+  </main>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#06373b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/nsat-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <title>Notify · SatoshiCore</title>
+  <link rel="stylesheet" href="/notify.css?v=1">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Notify home"><span class="brand-mark">N</span><span><strong>Notify</strong><small>by SatoshiCore</small></span></a>
+    <div class="top-actions"><span id="connection-status" class="connection-status">ยังไม่ได้เข้าสู่ระบบ</span><button id="install-app" class="install-app" type="button">ติดตั้งแอป</button><a class="messenger-link" href="https://chat.satoshicore.org/">เปิดแชท</a><button id="signout" class="quiet" type="button" hidden>ออกจากระบบ</button></div>
+  </header>
+
+  <main>
+    <section id="login-view" class="login-view">
+      <div class="login-copy"><span class="eyebrow">NOTIFICATION HUB</span><h1>ทุกการแจ้งเตือน<br>อยู่ในที่เดียว</h1><p>เชื่อมระบบตรวจอินเทอร์เน็ต เครื่องสแกน หรือแอปภายใน ให้ส่งข้อความ รูป และเวลามาถึงคุณได้ทันที</p><div class="login-benefits"><span>✓ ส่งถึงคนเดียวหรือทั้งกลุ่ม</span><span>✓ มี API key แยกตามบอต</span><span>✓ รับแจ้งเตือนสดและย้อนหลัง</span></div></div>
+      <form id="login-card" class="login-card"><span class="eyebrow">เริ่มต้นใช้งาน</span><h2>เข้าสู่ระบบ Notify</h2><p>ใช้บัญชี Google เพื่อจัดการบอต กลุ่มผู้รับ และการแจ้งเตือนของคุณ</p><div id="google-button"></div><label id="remember-row"><input id="remember-device" type="checkbox" checked><span>จำการเข้าสู่ระบบบนอุปกรณ์นี้</span></label><div id="demo-login" hidden><input id="demo-name" maxlength="48" placeholder="ชื่อสำหรับทดลอง"><button id="demo-signin" type="button">ทดลองใช้</button></div><p id="login-status" class="status-text" role="status"></p><small>การแจ้งเตือนจะส่งได้ถึงผู้ที่คุณเพิ่มเป็นเพื่อนใน Messenger</small></form>
+    </section>
+
+    <section id="portal" hidden>
+      <section class="welcome-row"><div><span class="eyebrow">NOTIFICATION HUB</span><h1>สวัสดี <span id="welcome-name">สมาชิก</span></h1><p>จัดการระบบที่ส่งการแจ้งเตือนเข้าบัญชีของคุณ</p></div><button id="enable-push" class="button-secondary" type="button">เปิดแจ้งเตือนบนอุปกรณ์</button></section>
+      <div class="stat-grid"><article class="stat-card"><span>ยังไม่อ่าน</span><strong id="stat-unread">0</strong><small>รายการแจ้งเตือน</small></article><article class="stat-card"><span>บอตของฉัน</span><strong id="stat-bots">0</strong><small>ระบบที่เชื่อมต่อ</small></article><article class="stat-card"><span>กลุ่มผู้รับ</span><strong id="stat-groups">0</strong><small>กลุ่มที่ตั้งค่าไว้</small></article></div>
+      <nav class="portal-tabs" aria-label="Notify sections"><button type="button" data-tab="inbox" class="active">กล่องแจ้งเตือน <span id="tab-unread"></span></button><button type="button" data-tab="bots">บอต</button><button type="button" data-tab="groups">กลุ่มผู้รับ</button><button type="button" data-tab="connect">เชื่อมต่อระบบ</button></nav>
+
+      <section id="panel-inbox" class="panel"><div class="panel-heading"><div><h2>กล่องแจ้งเตือน</h2><p>ข้อความและรูปจากระบบที่เชื่อมต่อ</p></div><div class="button-row"><button id="read-all" class="button-secondary" type="button" hidden>อ่านทั้งหมด</button><button id="refresh-inbox" class="button-secondary" type="button">รีเฟรช</button></div></div><div id="notifications" class="notification-list"></div></section>
+
+      <section id="panel-bots" class="panel" hidden><div class="panel-heading"><div><h2>บอตของฉัน</h2><p>สร้างคีย์แยกสำหรับเครื่องสแกน ระบบตรวจเน็ต หรือแอปภายใน</p></div></div><form id="bot-form" class="create-card"><label>ชื่อบอต<input id="bot-name" maxlength="60" placeholder="เช่น ระบบตรวจอินเทอร์เน็ต" required></label><button type="submit">＋ สร้างบอต</button></form><div id="new-key" class="new-key" hidden></div><div id="bot-list" class="bot-list"></div></section>
+
+      <section id="panel-groups" class="panel" hidden><div class="panel-heading"><div><h2>กลุ่มผู้รับ</h2><p>ตั้งกลุ่มไว้ครั้งเดียว แล้วส่งถึงกลุ่มด้วย groupId</p></div></div><form id="group-form" class="group-form"><label>ชื่อกลุ่ม<input id="group-name" maxlength="80" placeholder="เช่น เจ้าหน้าที่กะกลางคืน" required></label><div class="member-heading"><strong>เลือกสมาชิก</strong><span id="member-count">0 คน</span><a href="https://chat.satoshicore.org/">จัดการเพื่อนในแชท ↗</a></div><div id="friend-list" class="friend-list"></div><div class="button-row"><button id="save-group" type="submit">สร้างกลุ่ม</button><button id="cancel-group" class="button-secondary" type="button" hidden>ยกเลิก</button></div></form><div id="group-list" class="group-list"></div></section>
+
+      <section id="panel-connect" class="panel" hidden><div class="panel-heading"><div><h2>เชื่อมต่อระบบ</h2><p>ส่ง HTTP request จากเซิร์ฟเวอร์ของคุณมายัง Notify</p></div></div><ol class="steps"><li><strong>สร้างบอต</strong><span>คัดลอก API key จากแท็บบอตและเก็บไว้เป็นความลับบนเซิร์ฟเวอร์ของระบบต้นทาง</span></li><li><strong>เลือกผู้รับ</strong><span>สร้างกลุ่มผู้รับหนึ่งคนสำหรับแจ้งเตือนส่วนตัว หรือเลือกหลายคนเพื่อแจ้งเข้ากลุ่ม แล้วใช้ groupId ผู้รับต้องเป็นเพื่อนในแชทกับบัญชีเจ้าของบอต</span></li><li><strong>ส่งเหตุการณ์</strong><span>เรียก API พร้อมชื่อเรื่อง ข้อความ เวลา และรูป Data URL (ถ้ามี)</span></li></ol><div class="code-heading"><strong>ตัวอย่างเรียก API</strong><button id="copy-example" class="button-secondary" type="button">คัดลอก</button></div><pre class="code-block"><code id="curl-example"></code></pre><p class="helper">รูป JPEG, PNG หรือ WebP ขนาดไม่เกิน 2 MB · เวลา ISO 8601 · ID สมาชิกดูได้จาก <code>GET /api/friends</code></p><p class="helper">ส่งแบบส่วนตัวหรือเข้ากลุ่ม: สร้างกลุ่มผู้รับ (เลือก 1 คนหรือหลายคน) แล้วใส่ <code>"groupId":"GROUP_ID"</code></p></section>
+    </section>
+    <footer><span>Notify · SatoshiCore</span><a href="/privacy.html">ความเป็นส่วนตัว</a><a href="/terms.html">เงื่อนไขการใช้งาน</a></footer>
+  </main>
+  <dialog id="install-guide" class="install-guide"><form method="dialog"><button class="install-guide-close" aria-label="ปิด">×</button></form><h2>ติดตั้ง Notify</h2><p id="install-guide-text"></p><button id="install-guide-ok" type="button">เข้าใจแล้ว</button></dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script type="module" src="/notify.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.data/
+.secrets/
+.freebuff/
+.deploy-backups/
+.DS_Store
+*.log
+coverage/
+dist/
