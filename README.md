@@ -61,6 +61,17 @@ Administrators can schedule news, image, and video announcements for the reserve
 
 For a scan image, add `"image": "data:image/jpeg;base64,…"`. The user's app shows the event, source, timestamp, and image in **Notify → กล่องแจ้งเตือน**. Use `recipientId` for one user, `recipientIds` for a one-time list, or `groupId` for a saved group.
 
+### MikroTik RouterOS WAN alerts
+
+The example in [`examples/mikrotik/notify-wan.rsc`](examples/mikrotik/notify-wan.rsc) uses Netwatch to check reachability of `1.1.1.1` every 30 seconds and sends an alert to a saved Notify group when the probe changes between up and down. It measures internet reachability through the active route, not the physical link state of a specific WAN port.
+
+1. In Notify, create a Bot and a recipient group. Use a one-person group for a direct alert.
+2. Replace `nsat_REPLACE_WITH_BOT_KEY` and `REPLACE_WITH_NOTIFY_GROUP_ID` in both scripts in the `.rsc` file. Keep the Bot key private.
+3. Import the file on the router with `/import file-name=notify-wan.rsc`.
+4. Check the RouterOS log for `Notify sent`; failed HTTPS requests are logged as errors. `check-certificate=yes` requires the router to trust the HTTPS certificate chain.
+
+Netwatch state-change scripts and HTTP POST use RouterOS' built-in scripting and Fetch tools; see [MikroTik Netwatch](https://help.mikrotik.com/docs/spaces/ROS/pages/8323208/Netwatch) and [MikroTik Fetch](https://help.mikrotik.com/docs/spaces/ROS/pages/8978514/Fetch). If the router or upstream filters ICMP, replace `1.1.1.1` with a stable probe host reachable from that WAN.
+
 Bot keys are created with `POST /api/integrations/keys` using the user's normal sign-in token, listed with `GET /api/integrations/keys`, and revoked with `DELETE /api/integrations/keys/:id`. Recipient groups use `GET/POST /api/notify/groups` and `PUT/DELETE /api/notify/groups/:id`. Notifications can be fetched with `GET /api/notifications?limit=50`; mark one read with `PATCH /api/notifications/:id/read` or all read with `PATCH /api/notifications/read-all`.
 
 To enable push while the app is closed, generate VAPID keys with `npx web-push generate-vapid-keys`, set `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY`, and `VAPID_SUBJECT` in the server environment, restart the service, then let each recipient enable notifications on their device. Notification records and uploaded images are stored in the local data directory; configure access controls, backups, and a suitable retention policy before sending sensitive face-scan data.
